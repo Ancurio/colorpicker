@@ -1,7 +1,10 @@
+.PHONY: clean
 
-colorpicker : main.c
-	cc -o colorpicker main.c `pkg-config --libs --cflags gtk+-2.0 gdk-2.0 x11`
+CFLAGS := $(shell pkg-config --libs --cflags \
+	gtk+-2.0 gdk-2.0 x11 xcomposite xfixes)
 
-.PHONY : clean
-clean :
+colorpicker: main.c
+	cc -o colorpicker main.c $(CFLAGS)
+
+clean:
 	rm -f colorpicker
